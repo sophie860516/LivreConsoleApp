@@ -45,21 +45,19 @@ namespace TP1
 
                     case "5":
                         Console.WriteLine("Entrez l'année :");
-                        string annee = Console.ReadLine();
-                        
+                        string annee = Console.ReadLine();                       
                         SelectionManager.RequeteLivreCritere(path, annee : int.Parse(annee));
-                        //Console.WriteLine(" ajout");
-
                         break;
                     case "6":
-                        //SelectionnerLivre();
-                        Console.WriteLine(" ");
+                        Console.WriteLine("Entrez le ID de l'auteur :");
+                        string id = Console.ReadLine();
+                        SelectionManager.RequeteLivreCritere(path, idAuteur: int.Parse(id));
                         break;
                     case "7":
-                        //SelectionnerLivre();
-                        Console.WriteLine("");
+                        Console.WriteLine("Entrez la catégorie :");
+                        string categ = Console.ReadLine();
+                        SelectionManager.RequeteLivreCritere(path, categ: categ);
                         break;
-
                     case "8":
                         continuer = false;
                         break;
@@ -69,7 +67,7 @@ namespace TP1
                 }
             }
         }
-
+        //Afficher tous les livres dans le fichier 'livres.txt'
         static void ListerLivres()
         {
             if (!File.Exists(path))
@@ -83,16 +81,16 @@ namespace TP1
             Console.WriteLine("\n--- LISTE DES LIVRES ---");
             foreach (string ligne in lignes)
             {
-                // id;titre;res;annee
+                // id;titre;id auteur;annee; pages; catégorie
                 var champs = ligne.Split(';');
                 if (champs.Length >= 6)
                 {
-                    //Console.WriteLine($"ID: {champs[0]}, Titre: {champs[1]}, idAuteur: {champs[2]}, année: {champs[3]}, pages: {champs[4]}, categ: {champs[5]}");
                     Console.WriteLine($"{champs[0]}, {champs[1]}, {champs[2]},{champs[3]},{champs[4]},{champs[5]}");
                 }
             }
             } 
 
+        //Ajouter un livre en fournissant le ID, titre, ID auteur, l'année, et la catégorie. Ajout à la fin du fichier 
         static void AjouterLivre()
         {
             Console.Write("ID du livre : ");
@@ -121,7 +119,7 @@ namespace TP1
 
             Console.WriteLine("livre ajouté.");
         }
-
+        //Supprimer un livre selon le ID fourni
         static void SupprimerLivre()
         {
             Console.Write("Entrez l'ID du livre à supprimer : ");
@@ -156,6 +154,7 @@ namespace TP1
             File.WriteAllLines(path, lignesFinales);
             Console.WriteLine($"Livre ID {idASupprimer} supprimé (s'il existait).");
         }
+        //Modifier les infos d'un livre selon le ID fourni
         static void ModifierLivre()
         {
             Console.Write("Entrez l'ID du livre à modifier : ");
